@@ -1,4 +1,4 @@
-module Test.Helpers where 
+module Test.Helper where 
 
 import Prelude
 import Math (abs)
@@ -13,3 +13,6 @@ instance almostEqNumber :: AlmostEq Number where
 
 instance almostEqInt :: AlmostEq Int where
 almostEq x y = x == y
+
+-- | Phantom typed value used to select right instance in QC tests
+data T a = T

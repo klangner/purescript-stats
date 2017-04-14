@@ -6,11 +6,14 @@ module Statistics.Distribution.Normal
     ( NormalDistribution
     -- * Constructors
     , normalDistr
+    , normalDistrE
     , fromSample
     , standard
     ) where
 
-import Prelude (class Eq, class Show, negate, show, (&&), (*), (-), (/), (<<<), (<>), (==))
+import Prelude
+import Data.Array as A
+import Data.Maybe(Maybe(..))
 import Math (exp, sqrt, log, pi)
 import Statistics.Distribution (class ContDistr, class Distribution, cumulative, logDensity)
 import Statistics.Sample as S 
@@ -45,14 +48,26 @@ instance contDistrNormal :: ContDistr NormalDistribution where
       where xm = x - mean
   
 
-
 -- | Create normal distribution from mean and standard deviation
+-- | Use this function only when you are sure that sd > 0.
+-- | Otherwise use safe normalDistrE
 normalDistr :: Number -> Number -> NormalDistribution
 normalDistr mu sd = ND { mean: mu
                        , stdDev: sd 
                        , ndPdfDenom: log (sqrt (2.0*pi) * sd)
                        , ndCdfDenom: sqrt(2.0) * sd        
                        }
+
+
+-- | Create normal distribution in a safe way
+normalDistrE :: Number -> Number -> Maybe NormalDistribution
+normalDistrE mu sd 
+  | sd > 0.0 = Just $ ND { mean: mu
+                         , stdDev: sd 
+                         , ndPdfDenom: log (sqrt (2.0*pi) * sd)
+                         , ndCdfDenom: sqrt(2.0) * sd        
+                         }
+  | otherwise = Nothing
 
 
 -- | Standard normal distribution with mean equal to 0 and variance equal to 1
@@ -63,9 +78,11 @@ standard = normalDistr 0.0 1.0
 -- | Create distribution using parameters estimated from
 -- | sample. Variance is estimated using maximum likelihood method
 -- | (biased estimation). 
-fromSample :: S.Sample -> NormalDistribution
-fromSample xs = normalDistr mu sd
-  where
-    mu = S.mean xs
-    sd = S.stddev xs
+fromSample :: S.Sample -> Maybe NormalDistribution
+fromSample xs 
+  | A.length xs <= 1 = Nothing
+  | otherwise        = if sd == 0.0 then Nothing else Just $ normalDistr mu sd
+    where
+      mu = S.mean xs
+      sd = S.stddev xs
 
