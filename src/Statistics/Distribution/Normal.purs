@@ -15,7 +15,8 @@ import Prelude
 import Data.Array as A
 import Data.Maybe(Maybe(..))
 import Math (exp, sqrt, log, pi)
-import Statistics.Distribution (class ContDistr, class Distribution, cumulative, logDensity)
+import Numeric.SpecFunctions (erfc)
+import Statistics.Distribution (class ContDistr, class Distribution, logDensity)
 import Statistics.Sample as S 
 
 
@@ -30,15 +31,18 @@ data NormalDistribution = ND { mean       :: Number
 instance showNormal :: Show NormalDistribution where
   show (ND {mean, stdDev}) = "Normal distribution: {mean: " <> show mean <> ", stddev: " <> show stdDev <> "}"
 
+
 -- Equality instance
 instance eqNormal :: Eq NormalDistribution where
   eq (ND {mean: m1, stdDev: s1}) (ND {mean: m2, stdDev: s2}) = m1 == m2 && s1 == s2
 
+
 -- Distribution instance
 instance distrNormal :: Distribution NormalDistribution where
-    cumulative d x = 0.0 -- erfc ((mean d - x) / ndCdfDenom d) / 2
+    cumulative (ND {mean, ndCdfDenom}) x = erfc ((mean - x) / ndCdfDenom) / 2.0
 
-    complCumulative d x = 1.0 - cumulative d x -- erfc ((x - mean d) / ndCdfDenom d) / 2    
+    complCumulative (ND {mean, ndCdfDenom}) x = erfc ((x - mean) / ndCdfDenom) / 2.0
+
 
 -- Contiuous Distribution instance
 instance contDistrNormal :: ContDistr NormalDistribution where

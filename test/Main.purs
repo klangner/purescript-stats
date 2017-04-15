@@ -8,11 +8,13 @@ import Control.Monad.Eff.Random (RANDOM)
 
 import Test.Assert (ASSERT)
 
+import Test.Numeric.SpecFunctions (testSpecFun)
 import Test.Statistics.Sample (testSample)
 import Test.Statistics.Distribution (testDistribution)
 
 
 main :: ∀ eff. Eff (console :: CONSOLE, random :: RANDOM, exception :: EXCEPTION, assert :: ASSERT | eff) Unit
 main = do
+  testSpecFun
   testSample
   testDistribution
