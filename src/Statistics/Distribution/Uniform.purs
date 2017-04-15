@@ -28,7 +28,10 @@ instance eqNormal :: Eq UniformDistribution where
 
 -- Distribution instance
 instance distrUniform :: Distribution UniformDistribution where
-    cumulative d x = 0.0
+    cumulative (UD {uniformA, uniformB}) x
+      | x < uniformA  = 0.0
+      | x > uniformB  = 1.0
+      | otherwise     = (x - uniformA) / (uniformB - uniformA)
 
     complCumulative d x = 1.0 - cumulative d x
 

@@ -52,7 +52,7 @@ normalDistrTests= do
     log "* CDF sanity"
     quickCheck $ \(D d :: D NormalDistribution) x -> cdfSanityCheck d x <?> showError d x  
     log "* CDF is nondecreasing"
-    quickCheck $ \(D d :: D NormalDistribution) x y -> cdfIsNondecreasing d x y <?> showError d x  
+    quickCheck $ \(D d :: D NormalDistribution) x y -> cdfIsNondecreasing d x y <?> showError2 d x y
     log "* 1-CDF is correct"
     quickCheck $ \(D d :: D NormalDistribution) x -> cdfComplementIsCorrect d x <?> showError d x 
     log "* CDF at +inf = 1"
@@ -70,13 +70,13 @@ uniformDistrTests= do
     log "* CDF sanity"
     quickCheck $ \(D d :: D UniformDistribution) x -> cdfSanityCheck d x <?> showError d x    
     log "* CDF is nondecreasing"
-    quickCheck $ \(D d :: D UniformDistribution) x y -> cdfIsNondecreasing d x y <?> showError d x  
+    quickCheck $ \(D d :: D UniformDistribution) x y -> cdfIsNondecreasing d x y <?> showError2 d x y
     log "* 1-CDF is correct"
     quickCheck $ \(D d :: D UniformDistribution) x -> cdfComplementIsCorrect d x <?> showError d x 
     log "* CDF at +inf = 1"
-    -- quickCheck $ \(D d :: D UniformDistribution) -> cdfAtPosInfinity d <?> showError d infinity
+    quickCheck $ \(D d :: D UniformDistribution) -> cdfAtPosInfinity d <?> showError d infinity
     log "* CDF at -inf = 0"
-    -- quickCheck $ \(D d :: D UniformDistribution) -> cdfAtNegInfinity d <?> showError d (-1.0/0.0)
+    quickCheck $ \(D d :: D UniformDistribution) -> cdfAtNegInfinity d <?> showError d (-1.0/0.0)
     log "* PDF sanity"
     quickCheck $ \(D d :: D UniformDistribution) x -> pdfSanityCheck d x <?> showError d x
 
@@ -84,6 +84,10 @@ uniformDistrTests= do
 -- Error message in case test fails
 showError :: ∀ t. Show t => t -> Number -> String
 showError d x = "Distribution: " <> show d <> ", x: " <> show x <> "\n\n"
+
+-- Error message in case test fails
+showError2 :: ∀ t. Show t => t -> Number -> Number -> String
+showError2 d x y = "Distribution: " <> show d <> ", x: " <> show x <> ", y: " <> show y <> "\n\n"
 
 -- ------------------------------------------------------------------------------------------------
 -- Properties
