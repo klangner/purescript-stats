@@ -59,6 +59,7 @@ normalDistrTests= do
     quickCheck $ \(D d :: D NormalDistribution) -> cdfAtPosInfinity d <?> showError d infinity
     log "* CDF at -inf = 0"
     quickCheck $ \(D d :: D NormalDistribution) -> cdfAtNegInfinity d <?> showError d (-1.0/0.0)
+    
     log "* PDF sanity"
     quickCheck $ \(D d :: D NormalDistribution) x -> pdfSanityCheck d x <?> showError d x
 
