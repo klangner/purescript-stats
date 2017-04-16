@@ -7,12 +7,7 @@
   </img>
 </a>
 
-This library is roughly port of Haskell library: https://github.com/bos/statistics
-
-It means that is is good for beginniners wanting to learn PureScript! 
-You can find ideas and base implementation for functionality in this Haskell library. 
-Easier then starting from the scratch.
-
+Computing statistics in PureScript.
 
 ## Installation
 
@@ -47,6 +42,12 @@ and other improvements.
 
 Please report bugs via the
 [github issue tracker](http://github.com/klangner/purescript-stats/issues).
+
+This library is roughly port of the Haskell library: https://github.com/bos/statistics
+
+It means that is is good for beginniners wanting to learn PureScript! 
+You can find ideas and base implementation for functionality in this Haskell library. 
+Easier then starting from the scratch.
 
 
 # Redistributing
