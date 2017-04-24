@@ -18,6 +18,7 @@ testSample = do
     let s1 = [1.0, 2.0, 3.0]
     let s2 = [1.0, 2.0, 5.0, 6.0, 3.0, 4.0]
     let s3 = [3.0, 1.0, 2.0, 2.0, 1.0, 2.0]
+    let s4 = [3.0, 1.0, 2.0, 5.8, 2.0, 1.0, 2.0]
 
     log "* mean"
     assert $ S.mean s1 == 2.0
@@ -27,6 +28,12 @@ testSample = do
 
     log "* min"
     assert $ S.min s3 == Just 1.0
+
+    log "* median odd"
+    assert $ S.median s4 == 5.8
+
+    log "* median even"
+    assert $ S.median s2 == 4.5
 
     log "* variance"
     assert $ S.variance s2 == 35.0/12.0
