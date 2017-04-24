@@ -82,7 +82,7 @@ standard = normalDistr 0.0 1.0
 -- | Create distribution using parameters estimated from
 -- | sample. Variance is estimated using maximum likelihood method
 -- | (biased estimation). 
-fromSample :: S.Sample -> Maybe NormalDistribution
+fromSample :: S.Sample Number-> Maybe NormalDistribution
 fromSample xs 
   | A.length xs <= 1 = Nothing
   | otherwise        = if sd == 0.0 then Nothing else Just $ normalDistr mu sd
