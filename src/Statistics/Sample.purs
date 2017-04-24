@@ -1,7 +1,9 @@
 module Statistics.Sample 
   ( Sample
   , histogram
+  , max
   , mean
+  , min
   , mode
   , stddev
   , variance
@@ -46,7 +48,7 @@ mode xs = fst <$> A.foldl f Nothing xm
     xm = M.toUnfoldable (histogram xs)
     f :: Maybe (Tuple a Int) -> Tuple a Int -> Maybe (Tuple a Int)
     f Nothing x = Just x
-    f (Just tu) x = if (snd x) > (snd tu) then Just x else Just tu
+    f (Just tu) x = Just $ if (snd x) > (snd tu) then x else tu
 
 
 -- Calculate histogram
@@ -56,3 +58,19 @@ histogram xs = A.foldl f (M.empty :: M.Map a Int) xs
     f m x = M.alter g x m
     g (Just y) = Just (y + 1)
     g Nothing = Just 1
+
+
+-- | Maximum value in the sample
+max :: ∀ a. Ord a => Sample a -> Maybe a
+max xs = A.foldl f Nothing xs
+  where 
+    f (Just m) x = Just $ if x > m then x else m
+    f Nothing x = Just x
+
+
+-- | Minimal value in the sample
+min :: ∀ a. Ord a => Sample a -> Maybe a
+min xs = A.foldl f Nothing xs
+  where 
+    f (Just m) x = Just $ if x < m then x else m
+    f Nothing x = Just x    
