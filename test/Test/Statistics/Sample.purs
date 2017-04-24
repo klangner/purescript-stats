@@ -30,7 +30,7 @@ testSample = do
     assert $ S.min s3 == Just 1.0
 
     log "* median odd"
-    assert $ S.median s4 == 5.8
+    assert $ S.median s4 == 2.0
 
     log "* median even"
     assert $ S.median s2 == 4.5

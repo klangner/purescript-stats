@@ -84,4 +84,4 @@ median xs = if mod n 2 == 0 then ((at half) + (at (half+1))) / 2.0 else at half
     sorted = A.sort xs
     n = A.length xs
     half = n / 2
-    at i = fromMaybe 0.0 $ A.index xs i
+    at i = fromMaybe 0.0 $ A.index sorted i
