@@ -1,6 +1,7 @@
 module Statistics.Sample 
   ( Sample
   , mean
+  , mode
   , stddev
   , variance
   ) where
@@ -9,7 +10,9 @@ import Prelude
 import Data.Array as A
 import Data.Foldable (sum)
 import Data.Int (toNumber)
-import Data.Maybe (Maybe)
+import Data.Map as M
+import Data.Maybe (Maybe(..))
+import Data.Tuple (Tuple, fst, snd)
 import Math (pow, sqrt)
 
 
@@ -35,5 +38,20 @@ stddev = sqrt <<< variance
 
 
 -- Calculate mode
-mode :: ∀ a. Eq a => Sample a -> Maybe a
-mode xs = A.head xs
+mode :: ∀ a. Ord a => Sample a -> Maybe a
+mode xs = fst <$> A.foldl f Nothing xm
+  where
+    xm :: Array (Tuple a Int)
+    xm = M.toUnfoldable (histogram xs)
+    f :: Maybe (Tuple a Int) -> Tuple a Int -> Maybe (Tuple a Int)
+    f Nothing x = Just x
+    f (Just tu) x = if (snd x) > (snd tu) then Just x else Just tu
+
+
+-- Calculate histogram
+histogram :: ∀ a. Ord a => Sample a -> M.Map a Int
+histogram xs = A.foldl f (M.empty :: M.Map a Int) xs
+  where
+    f m x = M.alter g x m
+    g (Just y) = Just (y + 1)
+    g Nothing = Just 0    
