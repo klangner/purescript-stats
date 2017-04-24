@@ -1,5 +1,6 @@
 module Statistics.Sample 
   ( Sample
+  , histogram
   , mean
   , mode
   , stddev
@@ -54,4 +55,4 @@ histogram xs = A.foldl f (M.empty :: M.Map a Int) xs
   where
     f m x = M.alter g x m
     g (Just y) = Just (y + 1)
-    g Nothing = Just 0    
+    g Nothing = Just 1
