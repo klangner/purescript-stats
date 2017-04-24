@@ -1,4 +1,4 @@
-# Linear Algebra for PureScript
+# Statistics for PureScript
 
 [![Build status](https://travis-ci.org/klangner/purescript-stats.svg?branch=master)](https://travis-ci.org/klangner/purescript-stats)
 <a href="https://pursuit.purescript.org/packages/purescript-stats">
