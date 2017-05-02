@@ -39,14 +39,14 @@ class Distribution  d <= DiscreteDistr d where
 -- |  'logDensity'.
 class Distribution d <= ContDistr d where
     -- | Probability density function. Probability that random
-    -- variable /X/ lies in the infinitesimal interval
-    -- [/x/,/x+/&#948;/x/) equal to /density(x)/&#8901;&#948;/x/
+    -- | variable /X/ lies in the infinitesimal interval
+    -- | [/x/,/x+/&#948;/x/) equal to /density(x)/&#8901;&#948;/x/
     density :: d -> Number -> Number
     -- density d = exp . logDensity d
 
     -- | Inverse of the cumulative distribution function. The value
-    -- /x/ for which P(/X/&#8804;/x/) = /p/. If probability is outside
-    -- of [0,1] range function should call 'error'
+    -- | /x/ for which P(/X/&#8804;/x/) = /p/. If probability is outside
+    -- | of [0,1] range function should call 'error'
     -- quantile :: d -> Number -> Number
 
     -- | Natural logarithm of density.
