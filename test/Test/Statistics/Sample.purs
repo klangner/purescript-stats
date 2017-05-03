@@ -3,9 +3,7 @@ module Test.Statistics.Sample (testSample) where
 import Prelude
 import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Console (log, CONSOLE)
-import Data.Map as M
 import Data.Maybe (Maybe(..))
-import Data.Tuple (Tuple(..))
 import Test.Assert (assert, ASSERT)
 import Math (sqrt)
 import Statistics.Sample as S
@@ -43,6 +41,3 @@ testSample = do
 
     log "* mode"
     assert $ S.mode s3 == Just 2.0
-
-    log "* histogram"
-    assert $ S.histogram s3 == M.fromFoldable [Tuple 1.0 2, Tuple 2.0 3, Tuple 3.0 1]

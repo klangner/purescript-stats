@@ -1,6 +1,5 @@
 module Statistics.Sample 
   ( Sample
-  , histogram
   , max
   , mean
   , median
@@ -14,10 +13,11 @@ import Prelude
 import Data.Array as A
 import Data.Foldable (sum)
 import Data.Int (toNumber)
-import Data.Map as M
 import Data.Maybe (Maybe(..), fromMaybe)
 import Data.Tuple (Tuple, fst, snd)
 import Math (pow, sqrt)
+
+import Statistics.Sample.Histogram (histogram)
 
 
 -- | Sample data  
@@ -46,19 +46,10 @@ mode :: ∀ a. Ord a => Sample a -> Maybe a
 mode xs = fst <$> A.foldl f Nothing xm
   where
     xm :: Array (Tuple a Int)
-    xm = M.toUnfoldable (histogram xs)
+    xm = histogram xs
     f :: Maybe (Tuple a Int) -> Tuple a Int -> Maybe (Tuple a Int)
     f Nothing x = Just x
     f (Just tu) x = Just $ if (snd x) > (snd tu) then x else tu
-
-
--- | Calculate histogram
-histogram :: ∀ a. Ord a => Sample a -> M.Map a Int
-histogram xs = A.foldl f (M.empty :: M.Map a Int) xs
-  where
-    f m x = M.alter g x m
-    g (Just y) = Just (y + 1)
-    g Nothing = Just 1
 
 
 -- | Maximum value in the sample

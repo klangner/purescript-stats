@@ -10,6 +10,7 @@ import Test.Assert (ASSERT)
 
 import Test.Numeric.SpecFunctions (testSpecFun)
 import Test.Statistics.Sample (testSample)
+import Test.Statistics.Sample.Histogram (testHistogram)
 import Test.Statistics.Distribution (testDistribution)
 
 
@@ -17,4 +18,5 @@ main :: ∀ eff. Eff (console :: CONSOLE, random :: RANDOM, exception :: EXCEPTI
 main = do
   testSpecFun
   testSample
+  testHistogram
   testDistribution
