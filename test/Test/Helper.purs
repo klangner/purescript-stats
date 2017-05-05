@@ -21,6 +21,6 @@ data T a = T
 -- If the points are very close to each other then don't check because of possible numeric errors
 monotonicallyIncreases :: (Number -> Number) -> Number -> Number -> Boolean
 monotonicallyIncreases f x1 x2 
-  | abs (x1 - x2) < 0.01  = true
+  | abs (x1 - x2) < 0.1  = true
   | otherwise = f (min x1 x2) <= f (max x1 x2)
 
