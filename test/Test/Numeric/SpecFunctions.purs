@@ -1,16 +1,16 @@
 module Test.Numeric.SpecFunctions (testSpecFun) where
 
 import Prelude
-import Control.Monad.Eff (Eff)
-import Control.Monad.Eff.Console (log, CONSOLE)
-import Test.Assert (assert, ASSERT)
-import Test.Helper ((~=))
+
+import Effect (Effect)
+import Effect.Console (log)
 import Numeric.SpecFunctions (erf)
+import Test.Helper ((~=))
+import Test.Assert (assert)
 
 
-testSpecFun :: forall eff. Eff (console :: CONSOLE, assert :: ASSERT | eff) Unit
+testSpecFun :: Effect Unit
 testSpecFun = do
-
     log "\n# Test erf"
     log " * Test erf 1.0"
     assert $ erf 1.0 == 0.8427007877600067         -- actual = 0.84270079294971486934

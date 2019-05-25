@@ -1,15 +1,16 @@
 module Test.Statistics.Sample (testSample) where
 
 import Prelude
-import Control.Monad.Eff (Eff)
-import Control.Monad.Eff.Console (log, CONSOLE)
+
 import Data.Maybe (Maybe(..))
-import Test.Assert (assert, ASSERT)
+import Effect (Effect)
+import Effect.Console (log)
 import Math (sqrt)
 import Statistics.Sample as S
+import Test.Assert (assert)
 
 
-testSample :: forall eff. Eff (console :: CONSOLE, assert :: ASSERT | eff) Unit
+testSample :: Effect Unit
 testSample = do
 
     log "\n# Test Sample data structure"
