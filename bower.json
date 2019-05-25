@@ -1,0 +1,31 @@
+{
+  "name": "purescript-stats",
+  "homepage": "https://github.com/klangner/purescript-stats",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/klangner/purescript-stats.git"
+  },
+  "description": "Statistics",
+  "license": "Apache-2.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "output"
+  ],
+  "dependencies": {
+    "purescript-prelude": "^4.1.1",
+    "purescript-arrays": "^5.3.0",
+    "purescript-foldable-traversable": "^4.1.1",
+    "purescript-integers": "^4.0.0",
+    "purescript-ordered-collections": "^1.6.1",
+    "purescript-math": "^2.1.1",
+    "purescript-maybe": "^4.0.1"
+  },
+  "devDependencies": {
+    "purescript-assert": "^4.1.0",
+    "purescript-console": "^4.2.0",
+    "purescript-psci-support": "^4.0.0",
+    "purescript-quickcheck": "^6.1.0"
+  }
+}
