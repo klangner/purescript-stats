@@ -1,24 +1,16 @@
 module Test.Statistics.Distribution (testDistribution) where
 
 import Prelude
+
+import Effect (Effect)
+import Effect.Console (log)
 import Global (infinity)
-import Control.Monad.Eff.Console (log)
-import Test.QuickCheck (class Arbitrary
-                       , QC
-                       , arbitrary
-                       , quickCheck
-                       , (<?>)
-                       )
-import Test.QuickCheck.Gen (choose)
-import Test.Helper (monotonicallyIncreases, (~=))
-import Statistics.Distribution ( class Distribution
-                               , class ContDistr
-                               , complCumulative
-                               , cumulative
-                               , density
-                               )
+import Statistics.Distribution (class Distribution, class ContDistr, complCumulative, cumulative, density)
 import Statistics.Distribution.Normal (NormalDistribution, normalDistr)
 import Statistics.Distribution.Uniform (UniformDistribution, uniformDistr)
+import Test.Helper (monotonicallyIncreases, (~=))
+import Test.QuickCheck (class Arbitrary, arbitrary, quickCheck, (<?>))
+import Test.QuickCheck.Gen (choose)
 
 
 -- Helper type to define Arbitrary instances. Without this type they will be orphaned
@@ -26,7 +18,7 @@ import Statistics.Distribution.Uniform (UniformDistribution, uniformDistr)
 newtype D a = D a 
 
 -- Main test method
-testDistribution :: ∀ eff. QC eff Unit
+testDistribution :: Effect Unit
 testDistribution = do
     
     log "\n# Distribution tests"
@@ -46,7 +38,7 @@ testDistribution = do
 -- ------------------------------------------------------------------------------------------------
 
 -- Normal distributions
-normalDistrTests :: ∀ eff. QC eff Unit
+normalDistrTests :: Effect Unit
 normalDistrTests= do
     
     log "* CDF sanity"
@@ -65,7 +57,7 @@ normalDistrTests= do
 
 
 -- Uniform distributions
-uniformDistrTests :: ∀ eff. QC eff Unit
+uniformDistrTests :: Effect Unit
 uniformDistrTests= do
     
     log "* CDF sanity"
