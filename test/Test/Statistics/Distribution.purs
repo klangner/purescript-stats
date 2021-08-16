@@ -4,7 +4,7 @@ import Prelude
 
 import Effect (Effect)
 import Effect.Console (log)
-import Global (infinity)
+import Data.Number (infinity)
 import Statistics.Distribution (class Distribution, class ContDistr, complCumulative, cumulative, density)
 import Statistics.Distribution.Normal (NormalDistribution, normalDistr)
 import Statistics.Distribution.Uniform (UniformDistribution, uniformDistr)
