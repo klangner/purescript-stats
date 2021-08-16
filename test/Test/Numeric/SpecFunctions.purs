@@ -2,6 +2,7 @@ module Test.Numeric.SpecFunctions (testSpecFun) where
 
 import Prelude
 
+import Math (pow)
 import Effect (Effect)
 import Effect.Console (log)
 import Numeric.SpecFunctions (erf)
@@ -23,4 +24,4 @@ testSpecFun = do
     log " * Test erf -30.0"
     assert $ erf (-30.0) == -1.0
     log " * Test erf 1.0E-20"
-    assert $ erf 1.0E-20 == -3.0000000483809686E-8 -- actual = 1.13E-20
+    assert $ erf (pow 10.0 (-20.0)) == (-3.0000000483809686) * pow 10.0 (-8.0) -- actual = 1.13E-20
